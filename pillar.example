@@ -1,10 +1,19 @@
 # Alternatives formula example pillar
 
 alternatives:
-  editor:
+  editor-vim-basic:
+    name: editor
     path: /usr/bin/vim.basic
     link: /usr/bin/editor
     priority: 100
+  editor:
+    path: /bin/nano
+    link: /usr/bin/editor
+    priority: 50
+  w-disable:
+    name: w
+    disable: true
   awk:
     disable: true
+  
 
