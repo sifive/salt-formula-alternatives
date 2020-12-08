@@ -1,0 +1,10 @@
+# Alternatives formula example pillar
+
+alternatives:
+  editor:
+    path: /usr/bin/vim.basic
+    link: /usr/bin/editor
+    priority: 100
+  awk:
+    disable: true
+
