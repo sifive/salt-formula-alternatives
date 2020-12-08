@@ -70,7 +70,7 @@ def install(name, link, path, priority):
            'changes': {},
            'comment': ''}
 
-    if __salt__['alternatives.check_exists'](name, path):
+    if __salt__['alternatives.check_priority'](name, path, priority):
         ret['comment'] = 'Alternative {0} for {1} is already registered'.format(path, name)
     else:
         if __opts__['test']:
@@ -81,7 +81,7 @@ def install(name, link, path, priority):
             return ret
 
         out = __salt__['alternatives.install'](name, link, path, priority)
-        if __salt__['alternatives.check_exists'](name, path):
+        if __salt__['alternatives.check_priority'](name, path, priority):
             if __salt__['alternatives.check_installed'](name, path):
                 ret['comment'] = (
                     'Alternative for {0} set to path {1} with priority {2}'

@@ -140,7 +140,29 @@ def check_exists(name, path):
     if out['retcode'] > 0 and out['stderr'] != '':
         return False
 
-    return any((line.startswith(path) for line in out['stdout'].splitlines()))
+    return any((line.startswith(path+' ') for line in out['stdout'].splitlines()))
+
+
+def check_priority(name, path, priority):
+    '''
+    Check if the given path is an alternative for a name with the given priority
+
+    .. versionadded:: 2015.8.4
+
+    CLI Example:
+
+    .. code-block:: bash
+
+        salt '*' alternatives.check_exists name path
+    '''
+    cmd = [_get_cmd(), '--display', name]
+    out = __salt__['cmd.run_all'](cmd, python_shell=False)
+    
+    if out['retcode'] > 0 and out['stderr'] != '':
+        return False
+
+    check_priority = six.text_type(priority)
+    return any(((line.startswith(path+' ') and line.endswith(' '+check_priority)) for line in out['stdout'].splitlines()))
 
 
 def check_installed(name, path):
